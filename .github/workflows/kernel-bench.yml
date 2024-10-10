@@ -35,4 +35,4 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: perf-artifacts
-          path: ./artifacts
+          path: ./perf-artifacts

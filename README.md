@@ -7,7 +7,7 @@ Please make sure your Triton compiler is v2.1 or later, and is from the OpenAI T
 You can also install in your python venv using latest wheels:
 `pip install --pre pytorch-triton-rocm torch --index-url https://download.pytorch.org/whl/nightly/rocm6.2`
 
-## `flash-attention.py`
+## `test_flash-attention.py`
 
 This script contains the Flash Attention kernel with the following support
 
@@ -20,18 +20,18 @@ This script contains the Flash Attention kernel with the following support
 
 These are currently supported for the forward kernel only.
 
-## `matmul.py`
+## `test_matmul.py`
 
 This script contains the GEMM kernel that supports int8, int32, fp16,
 fp32, bf16 datatypes.
 
-## `softmax.py`
+## `test_softmax.py`
 
 Kernel that implements Softmax over a row of tensor.
 
-## `rmsnorm.py`
+## `test_rmsnorm.py`
 
 Kernel that implements RMS Norm over a row of tensor.
 
-## `layernorm.py`
+## `test_layernorm.py`
 Kernel that implements Layer Normalization over a row on tensor
