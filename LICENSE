@@ -1,4 +1,4 @@
-The following license applies to the `test_flash-attention.py`, `test_layernorm.py`, `test_matmul.py`, `test_rmsnorm.py`, `test_softmax.py` files in this directory:
+The following license applies to the test_flash-attention.py, test_layernorm.py, test_matmul.py, test_rmsnorm.py, test_softmax.py files in this directory:
 /*
 * Copyright 2018-2020 Philippe Tillet
 * Copyright 2020-2022 OpenAI
