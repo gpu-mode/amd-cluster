@@ -1,0 +1,28 @@
+# Visual Studio files
+.env
+.vs/
+.vscode/
+*.sdf
+*.opensdf
+*.VC.opendb
+*.suo
+*.user
+
+# macOS files
+.DS_Store
+
+# CMake artifacts
+build/
+build-*/
+
+# Python
+__pycache__
+_python_build/
+dist/
+wheelhouse
+*.egg-info
+*.whl
+triton_bench/
+
+# Bench Artifacts
+perf-artifacts/

@@ -1,0 +1,46 @@
+name: Triton Kernel Benchmarking
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+  # Runs at 12:00 PM UTC, which is 5:00 AM PST
+   - cron: '0 12 * * *'
+
+concurrency:
+  # A PR number if a pull request and otherwise the commit hash. This cancels
+  # queued and in-progress runs for the same PR (presubmit) or commit
+  # (postsubmit). The workflow name is prepended to avoid conflicts between
+  # different workflows.
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  kernel-bench:
+    runs-on: amdgpu-mi250-x86-64
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Setup Triton Python Venv
+        run: |
+          python3.11 -m venv triton_bench
+          source triton_bench/bin/activate
+          pip install --upgrade pip
+          pip install --pre pytorch-triton-rocm torch --index-url https://download.pytorch.org/whl/nightly/rocm6.2
+          pip install -r requirements.txt
+
+      - name: Run Kernel Benchmarking
+        run: |
+          source triton_bench/bin/activate
+          pip freeze
+          pytest -s kernels
+      
+      - uses: actions/upload-artifact@master
+        with:
+          name: perf-artifacts
+          path: ./perf-artifacts/**/*.csv
