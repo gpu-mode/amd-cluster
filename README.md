@@ -35,3 +35,6 @@ Kernel that implements RMS Norm over a row of tensor.
 
 ## `test_layernorm.py`
 Kernel that implements Layer Normalization over a row on tensor
+
+## `test_dotproduct.py`
+Kernel that implements the dot product of two vectors
