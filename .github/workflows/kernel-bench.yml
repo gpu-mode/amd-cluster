@@ -3,19 +3,30 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-  # Runs at 12:00 PM UTC, which is 5:00 AM PST
-   - cron: '0 12 * * *'
+    # Runs at 12:00 PM UTC, which is 5:00 AM PST
+    - cron: '0 12 * * *'
 
 concurrency:
-  # A PR number if a pull request and otherwise the commit hash. This cancels
-  # queued and in-progress runs for the same PR (presubmit) or commit
-  # (postsubmit). The workflow name is prepended to avoid conflicts between
-  # different workflows.
   group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
   cancel-in-progress: true
 
 jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      run_benchmarks: ${{ steps.filter.outputs.kernels }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            kernels:
+              - 'kernels/**'
+
   kernel-bench:
+    needs: check-changes
+    if: ${{ needs.check-changes.outputs.run_benchmarks == 'true' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
     runs-on: amdgpu-mi250-x86-64
     steps:
       - name: Checkout Repo
