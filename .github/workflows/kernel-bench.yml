@@ -38,7 +38,7 @@ jobs:
         run: |
           source triton_bench/bin/activate
           pip freeze
-          pytest -s kernels
+          pytest -n 4 -s kernels
       
       - uses: actions/upload-artifact@master
         with:
