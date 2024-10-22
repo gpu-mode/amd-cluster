@@ -17,6 +17,8 @@ concurrency:
 jobs:
   kernel-bench:
     runs-on: amdgpu-mi250-x86-64
+    env:
+      KERNEL_VENV_DIR: ${{ github.workspace }}/triton_bench
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -28,15 +30,15 @@ jobs:
 
       - name: Setup Triton Python Venv
         run: |
-          python3.11 -m venv triton_bench
-          source triton_bench/bin/activate
+          python3.11 -m venv ${KERNEL_VENV_DIR}
+          source ${KERNEL_VENV_DIR}/bin/activate
           pip install --upgrade pip
           pip install --pre pytorch-triton-rocm torch --index-url https://download.pytorch.org/whl/nightly/rocm6.2
           pip install -r requirements.txt
 
       - name: Run Kernel Benchmarking
         run: |
-          source triton_bench/bin/activate
+          source ${KERNEL_VENV_DIR}/bin/activate
           pip freeze
           pytest -n 4 -s kernels
       
