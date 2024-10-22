@@ -40,7 +40,7 @@ jobs:
         run: |
           source ${KERNEL_VENV_DIR}/bin/activate
           pip freeze
-          pytest -n 4 -s kernels
+          pytest -s kernels --numprocesses 4
       
       - uses: actions/upload-artifact@master
         with:
