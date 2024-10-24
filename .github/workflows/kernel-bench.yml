@@ -30,7 +30,9 @@ jobs:
           python-version: "3.11"
 
       - name : Set Test File
-        run: python3.11 ci-tools/parse.py --test "${{ github.event.pull_request.body }}"
+        run: |
+          python3.11 ci-tools/parse.py --test "${{ github.event.pull_request.body }}"
+          echo "TEST_FILE=$TEST_FILE" >> $GITHUB_ENV
 
       - name: Setup Triton Python Venv
         run: |
