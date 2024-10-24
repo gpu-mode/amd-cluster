@@ -22,7 +22,7 @@ jobs:
       KERNEL_VENV_DIR: ${{ github.workspace }}/triton_bench
     steps:
       - name : Set Test File
-        run: python3.11 ci-tools/parse.py --test ${{ github.event.pull_request.body }}
+        run: python3.11 ci-tools/parse.py --test "${{ github.event.pull_request.body }}"
 
       - name: Checkout Repo
         uses: actions/checkout@v4
