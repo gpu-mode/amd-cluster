@@ -21,9 +21,6 @@ jobs:
     env:
       KERNEL_VENV_DIR: ${{ github.workspace }}/triton_bench
     steps:
-      - name : Set Test File
-        run: python3.11 ci-tools/parse.py --test "${{ github.event.pull_request.body }}"
-
       - name: Checkout Repo
         uses: actions/checkout@v4
 
@@ -31,6 +28,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name : Set Test File
+        run: python3.11 ci-tools/parse.py --test "${{ github.event.pull_request.body }}"
 
       - name: Setup Triton Python Venv
         run: |
