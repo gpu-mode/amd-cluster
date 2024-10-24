@@ -21,8 +21,8 @@ jobs:
     env:
       KERNEL_VENV_DIR: ${{ github.workspace }}/triton_bench
     steps:
-      - name : Print body of PR
-        run: echo The body of your PR is ${{ github.event.pull_request.body }}
+      - name : Set Test File
+        run: python3.11 ci-tools/parse.py --test ${{ github.event.pull_request.body }}
 
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -45,7 +45,7 @@ jobs:
         run: |
           source ${KERNEL_VENV_DIR}/bin/activate
           pip freeze
-          pytest kernels -s -n 4
+          pytest kernels/${TEST_FILE} -s -n 4
       
       - uses: actions/upload-artifact@master
         with:
