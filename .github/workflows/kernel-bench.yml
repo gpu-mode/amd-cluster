@@ -32,7 +32,6 @@ jobs:
       - name : Set Test File
         run: |
           python3.11 ci-tools/parse.py --test "${{ github.event.pull_request.body }}"
-          echo "TEST_FILE=$TEST_FILE" >> $GITHUB_ENV
 
       - name: Setup Triton Python Venv
         run: |
@@ -47,7 +46,7 @@ jobs:
         run: |
           source ${KERNEL_VENV_DIR}/bin/activate
           pip freeze
-          pytest kernels/${TEST_FILE} -s -n 4
+          pytest kernels/${{ env.TEST_FILE }} -s -n 4
       
       - uses: actions/upload-artifact@master
         with:

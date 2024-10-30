@@ -3,8 +3,10 @@ import os
 
 def set_env_variable_from_string(input_string):
     if "ci-exactly:" in input_string:
+        env_file = os.getenv('GITHUB_ENV')
         test_name = input_string.split("ci-exactly:")[1].strip()
-        os.environ["TEST_FILE"] = test_name
+        with open(env_file, "a") as myfile:
+            myfile.write(f"TEST_FILE={test_name}")
         print(f'Successfully set TEST_FILE to: {test_name}')
     else:
         print('The PR body does not contain "ci-exactly:" so running all tests')
