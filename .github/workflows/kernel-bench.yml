@@ -19,7 +19,7 @@ jobs:
   kernel-bench:
     runs-on: amdgpu-mi250-x86-64
     env:
-      KERNEL_VENV_DIR: ${{ github.workspace }}/triton_bench
+      KERNEL_VENV_DIR: /groups/aig_sharks/triton_bench
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
