@@ -14,6 +14,9 @@ This repo is configured with a custom Github runner donated by AMD. You can queu
 The main things you need to run your own benchmark
 1. In `kernels/` create a new file that must start with the name `test_`. This is because we use `pytest` to discover your kernel
 2. If you want your benchmark results to persist in a Github Artifact, we recommend using the builtin Triton `benchmark.run(save_path="./perf-artifacts/your_kernel", show_plots=True, print_data=True)`
+3. In your PR, if you don't want to run testing on all the kernels, you can specify a specific kernel you want
+to test by adding a line like the following to your PR description: `ci-exactly: <test-file-name.py>` as seen
+in this PR: [Example](https://github.com/gpu-mode/amd-cluster/pull/3)
 
 Have fun! We intend for this to be a social repo, if you have any other requests for things we could do better please let us know!
 
